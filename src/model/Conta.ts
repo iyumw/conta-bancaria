@@ -67,15 +67,16 @@ export class Conta {
         console.log("Saldo: R$ " + this._saldo.toFixed(2))
     }
 
-    public sacar(valor: number): boolean {
+    public sacar(valor: number): boolean{
         if(valor > this._saldo){
-            console.log(colors.fg.red + "Saldo insuficiente!" + colors.reset);
+            console.log('Saldo Insuficiente!');
             return false;
         }
-
+        
         this._saldo -= valor;
         return true;
     }
+    
 
     public depositar(valor: number): void {
         if(valor <= 0){
