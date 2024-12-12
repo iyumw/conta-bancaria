@@ -2,6 +2,7 @@ import readlinesync = require('readline-sync');
 import { colors } from './src/util/cores';
 import { Conta } from './src/model/Conta';
 import { ContaCorrente } from './src/model/ContaCorrente';
+import { ContaPoupanca } from './src/model/ContaPoupanca';
 
 export function main() {
     let opcao: number
@@ -12,14 +13,22 @@ export function main() {
     // c1.sacar(800);
     // c1.visualizar();
 
-    const cc1 = new ContaCorrente(1, 456, 1, "Emy", 10000, 1000);
+    const cc1 = new ContaCorrente(2, 456, 1, "Emy", 100000, 1000);
     cc1.visualizar();
-
     cc1.sacar(100500);
     cc1.visualizar();
-
-    cc1.depositar(2000);
+    cc1.depositar(6000);
     cc1.visualizar();
+
+    const cp1 = new ContaPoupanca(3, 678, 1, "Lia", 10000, 25);
+    cp1.visualizar();
+    cp1.sacar(3000);
+    cp1.visualizar();
+    
+    const cp2 = new ContaPoupanca(4, 789, 1, "Eduarda", 10000, 15)
+    cp2.visualizar();
+    cp2.depositar(500);
+    cp2.visualizar();
 
     while (true) {
         menu()
