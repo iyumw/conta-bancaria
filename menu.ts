@@ -9,11 +9,6 @@ export function main() {
     c1.depositar(500);
     c1.visualizar();
 
-    const c2 = new Conta(2, 456, 2, "Maria", 5000);
-    c2.visualizar();
-    c2.sacar(6000);
-    c2.visualizar();
-
     while (true) {
         menu()
         opcao = readlinesync.questionInt()

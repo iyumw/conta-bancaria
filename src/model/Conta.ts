@@ -7,53 +7,55 @@ export class Conta {
     private _titular: string;
     private _saldo: number;
 
-	constructor(_numConta: number, _numAgencia: number, _tipoConta: number, _titular: string, _saldo: number) {
-		this._numConta = _numConta;
-		this._numAgencia = _numAgencia;
-		this._tipoConta = _tipoConta;
-		this._titular = _titular;
-		this._saldo = _saldo;
+	constructor(numConta: number, numAgencia: number, tipoConta: number, titular: string, saldo: number) {
+		this._numConta = numConta;
+		this._numAgencia = numAgencia;
+		this._tipoConta = tipoConta;
+		this._titular = titular;
+		this._saldo = saldo;
 	}
     
-	public get_numConta(): number {
+
+	public get numConta(): number {
 		return this._numConta;
 	}
 
-	public get_numAgencia(): number {
+	public get numAgencia(): number {
 		return this._numAgencia;
 	}
 
-	public get_tipoConta(): number {
+	public get tipoConta(): number {
 		return this._tipoConta;
 	}
 
-	public get_titular(): string {
+	public get titular(): string {
 		return this._titular;
 	}
 
-	public get_saldo(): number {
+	public get saldo(): number {
 		return this._saldo;
 	}
 
-	public set_numConta(value: number) {
+	public set numConta(value: number) {
 		this._numConta = value;
 	}
 
-	public set_numAgencia(value: number) {
+	public set numAgencia(value: number) {
 		this._numAgencia = value;
 	}
 
-	public set_tipoConta(value: number) {
+	public set tipoConta(value: number) {
 		this._tipoConta = value;
 	}
 
-	public set_titular(value: string) {
+	public set titular(value: string) {
 		this._titular = value;
 	}
 
-	public set_saldo(value: number) {
+	public set saldo(value: number) {
 		this._saldo = value;
 	}
+	
     
 // Métodos
     public visualizar(): void {
