@@ -1,6 +1,6 @@
 import { colors } from "../util/cores";
 
-export class Conta {
+export abstract class Conta {
     private _numConta: number;
     private _numAgencia: number;
     private _tipoConta: number;
