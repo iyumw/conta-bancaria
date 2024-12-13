@@ -2,32 +2,25 @@ import readlinesync = require('readline-sync');
 import { colors } from './src/util/cores';
 import { ContaCorrente } from './src/model/ContaCorrente';
 import { ContaPoupanca } from './src/model/ContaPoupanca';
+import { ContaController } from './src/controller/ContaController';
 
 export function main() {
-    let opcao: number
+    let opcao, numero, agencia, saldo, limite, aniversario, tipo: number
+    let titular: string;
 
-    // const c1 = new Conta(1, 123, 1, "Isis", 10000);
-    // c1.depositar(500);
-    // c1.visualizar();
-    // c1.sacar(800);
-    // c1.visualizar();
+    // Pra selecionar o tipo de conta no menu
+    const tipoContas = ['Conta Corrente', 'Conta Poupanca']
 
-    const cc1 = new ContaCorrente(2, 456, 1, "Emy", 100000, 1000);
-    cc1.visualizar();
-    cc1.sacar(100500);
-    cc1.visualizar();
-    cc1.depositar(6000);
-    cc1.visualizar();
+    // Criando um objeto da classe ContaController
+    const contas = new ContaController();
 
-    const cp1 = new ContaPoupanca(3, 678, 1, "Lia", 10000, 25);
-    cp1.visualizar();
-    cp1.sacar(3000);
-    cp1.visualizar();
-    
-    const cp2 = new ContaPoupanca(4, 789, 1, "Eduarda", 10000, 15)
-    cp2.visualizar();
-    cp2.depositar(500);
-    cp2.visualizar();
+    //Novas Instâncias da Classe ContaCorrente (Objetos)
+    contas.cadastrar(new ContaCorrente(contas.gerarNum(), 1234, 1, 'Amanda Magro', 1000000.00, 100000.00));
+    contas.cadastrar(new ContaCorrente(contas.gerarNum(), 4578, 1, 'João da Silva', 1000.00, 100.00));
+ 
+    // Novas Instâncias da Classe ContaPoupança (Objetos)
+    contas.cadastrar(new ContaPoupanca(contas.gerarNum(), 5789, 2, "Geana Almeida", 10000, 10));
+    contas.cadastrar(new ContaPoupanca(contas.gerarNum(), 5698, 2, "Jean Lima", 15000, 15));
 
     while (true) {
         menu()
@@ -36,30 +29,76 @@ export function main() {
         switch(opcao){
             case 1:
                 console.log("\nCriar Conta\n");
+
+                console.log("Insira o numero de sua agencia: ");
+                agencia = readlinesync.questionInt('');
+                
+                console.log("Insira o nome do titular: ");
+                titular = readlinesync.question('');
+
+                console.log("Escolha o tipo da conta: ");
+                // tipoContas é o que aparece pro usuário
+                // cancel : false evita que o usuário cancele a operação
+                // +1 porque o vetor começa no 0
+                tipo = readlinesync.keyInSelect(tipoContas, "", { cancel : false}) + 1;
+
+                console.log("Insira o saldo da conta: ");
+                saldo = readlinesync.questionFloat('');
+
+                switch (tipo) {
+                    case 1: 
+                        // Conta Corrente
+                        console.log("Insira o limite da conta: ");
+                        limite = readlinesync.questionFloat('');
+                        contas.cadastrar(new ContaCorrente(contas.gerarNum(), agencia, tipo, titular, saldo, limite)) // Instancia o objeto e manda o objeto pro ContaController
+                    break;
+                    case 2:
+                        // Conta Poupanca
+                        console.log("Insira o dia do aniversario da poupanca: ");
+                        aniversario = readlinesync.questionInt('');
+                        contas.cadastrar(new ContaCorrente(contas.gerarNum(), agencia, tipo, titular, saldo, aniversario));
+                    break;
+                }
+
+                keyPress();
                 break
             case 2:
                 console.log("\nListar todas as Contas\n");
+                contas.listar();
+                keyPress();
                 break
             case 3:
                 console.log("\nConsultar dados da Conta - por número\n");
+
+                console.log("Digite o numero da conta: ")
+                numero = readlinesync.questionInt('');
+
+                contas.pesquisar(numero);
+                keyPress();
                 break
             case 4:
                 console.log("\nAtualizar dados da Conta\n");
+                keyPress();
                 break
             case 5:
                 console.log("\nApagar uma Conta\n");
+                keyPress();
                 break;
             case 6:
                 console.log("\nSaque\n");
+                keyPress();
                 break;
             case 7:
                 console.log("\nDepósito\n");
+                keyPress();
                 break;
             case 8:
                 console.log("\nTransferência entre Contas\n");
+                keyPress();
                 break;
             case 9:
                 about()
+                keyPress();
                 break
             default:
                 console.log(colors.fg.redstrong + "\nOpcao invalida! Tente novamente." + colors.reset);
@@ -91,6 +130,11 @@ function about() {
     console.log("LinkedIn: https://www.linkedin.com/in/isis-okamoto/")
     console.log(colors.fg.magentastrong + "\n","=".repeat(68) ,"\n"+ colors.reset)
     process.exit(0)
+}
+
+function keyPress(): void {
+    console.log("\nPressione enter para continuar...")
+    readlinesync.prompt();
 }
 
 main();
