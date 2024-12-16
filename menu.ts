@@ -78,10 +78,51 @@ export function main() {
                 break
             case 4:
                 console.log("\nAtualizar dados da Conta\n");
+
+                console.log("Digite o numero da conta a ser atualizada: ")
+                numero = readlinesync.questionInt('');
+                contas.pesquisar(numero);
+
+                let conta = contas.buscarNumero(numero);
+                
+                if (conta !== null) {
+                    console.log("\nInsira o novo numero de sua agencia: ");
+                    agencia = readlinesync.questionInt('');
+                    
+                    console.log("\nInsira o novo nome do titular: ");
+                    titular = readlinesync.question('');
+
+                    console.log("\nInsira o novo saldo da conta: ");
+                    saldo = readlinesync.questionFloat('');
+
+                    tipo = conta.tipoConta;
+
+                    switch (tipo) {
+                        case 1: 
+                            // Conta Corrente
+                            console.log("Insira o novo limite da conta: ");
+                            limite = readlinesync.questionFloat('');
+                            contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite)) // Instancia o objeto e manda o objeto pro ContaController
+                        break;
+                        case 2:
+                            // Conta Poupanca
+                            console.log("Insira o novo dia do aniversario da poupanca: ");
+                            aniversario = readlinesync.questionInt('');
+                            contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, aniversario));
+                        break;
+                }
+            } else {
+                console.log(colors.fg.redstrong + "\nConta não encontrada!" + colors.reset);
+            }
+
                 keyPress();
                 break
             case 5:
                 console.log("\nApagar uma Conta\n");
+                console.log("Digite o numero da conta a ser deletada: ")
+                numero = readlinesync.questionInt('');
+                
+                contas.deletar(numero);
                 keyPress();
                 break;
             case 6:
