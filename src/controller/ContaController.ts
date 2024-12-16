@@ -44,17 +44,43 @@ export class ContaController implements ContaRepository{
         if(buscarConta !== null) { 
             this.listaContas.splice(this.listaContas.indexOf(buscarConta), 1);
             console.log("Conta deletada com sucesso!");
-        } else
+        } else{
             console.log("Conta não encontrada!");
+        }  
     }
+
+    // Métodos bancários
     sacar(numero: number, valor: number): void {
-        throw new Error("Method not implemented.");
+        const buscarConta = this.buscarNumero(numero);
+
+        if(buscarConta !== null && buscarConta.sacar(valor) === true) { 
+            console.log("Saque efetuado com sucesso!");
+        } else {
+            console.log("Conta não encontrada!");
+        } 
     }
     depositar(numero: number, valor: number): void {
-        throw new Error("Method not implemented.");
+        const buscarConta = this.buscarNumero(numero);
+
+        if(buscarConta !== null) { 
+            buscarConta.depositar(valor);
+            console.log("Deposito efetuado com sucesso!");
+        } else {
+            console.log("Conta não encontrada!");
+        } 
     }
-    transferir(contaOrigem: number, contaDestino: number, valor: number): void {
-        throw new Error("Method not implemented.");
+    transferir(numeroOrigem: number, numeroDestino: number, valor: number): void {
+        const contaOrigem = this.buscarNumero(numeroOrigem);
+        const contaDestino = this.buscarNumero(numeroDestino);
+
+        if(contaOrigem !== null && contaDestino !== null) {
+            if(contaOrigem.sacar(valor) === true) {
+                contaDestino.depositar(valor);
+                console.log("Transferência efetuada com sucesso!");
+            } 
+        } else {
+            console.log("Conta de origem e/ou conta de destino não foi encontrada!");
+        }   
     }
 
     // Métodos auxiliares

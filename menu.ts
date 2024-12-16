@@ -5,7 +5,7 @@ import { ContaPoupanca } from './src/model/ContaPoupanca';
 import { ContaController } from './src/controller/ContaController';
 
 export function main() {
-    let opcao, numero, agencia, saldo, limite, aniversario, tipo: number
+    let opcao, numero, agencia, saldo, limite, aniversario, tipo, numeroDestino, valor: number
     let titular: string;
 
     // Pra selecionar o tipo de conta no menu
@@ -63,7 +63,7 @@ export function main() {
                 keyPress();
                 break
             case 2:
-                console.log("\nListar todas as Contas\n");
+                console.log(colors.fg.cyan + "\n" + " ".repeat(20) + " Listar todas as contas " + " ".repeat(23) + colors.reset);
                 contas.listar();
                 keyPress();
                 break
@@ -127,14 +127,47 @@ export function main() {
                 break;
             case 6:
                 console.log("\nSaque\n");
+
+                console.log("Digite o numero da conta que ira realizar o saque: ")
+                numero = readlinesync.questionInt('');
+
+                contas.pesquisar(numero);
+
+                console.log("\nDigite o valor do saque: ")
+                valor = readlinesync.questionFloat('');
+
+                contas.sacar(numero, valor);
                 keyPress();
                 break;
             case 7:
                 console.log("\nDepósito\n");
+
+                console.log("Digite o numero da conta que ira realizar o deposito: ")
+                numero = readlinesync.questionInt('');
+
+                contas.pesquisar(numero);
+
+                console.log("\nDigite o valor do saque: ")
+                valor = readlinesync.questionFloat('');
+
+                contas.depositar(numero, valor);
                 keyPress();
                 break;
             case 8:
                 console.log("\nTransferência entre Contas\n");
+
+                console.log("Digite o numero da conta de origem: ")
+                numero = readlinesync.questionInt('');
+
+                console.log("Digite o numero da conta de destino: ")
+                numeroDestino = readlinesync.questionInt('');
+
+                contas.pesquisar(numero);
+
+                console.log("\nDigite o valor da transferencia: ")
+                valor = readlinesync.questionFloat('');
+
+                contas.transferir(numero, numeroDestino, valor);
                 keyPress();
                 break;
             case 9:
