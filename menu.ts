@@ -171,6 +171,15 @@ export function main() {
                 keyPress();
                 break;
             case 9:
+                console.log("Consulta pelo Titular")
+
+                console.log("Digite o nome do titular: ")
+                titular = readlinesync.question('');
+
+                contas.procurarTitular(titular)
+                keyPress();
+                break
+            case 0:
                 about()
                 keyPress();
                 break
@@ -191,7 +200,8 @@ function menu(): void {
     console.log("   6 - Sacar")
     console.log("   7 - Depositar")
     console.log("   8 - Transferir valores entre contas")
-    console.log("   9 - Sair")
+    console.log("   9 - Procurar conta pelo titular")
+    console.log("   0 - Sair")
 
     console.log(colors.fg.magenta + "\n","-".repeat(68) ,"\n" + colors.reset)
     console.log(colors.fg.blue + "Digite a opcao desejada: " + colors.reset) 

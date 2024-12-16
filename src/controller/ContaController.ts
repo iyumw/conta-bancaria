@@ -11,6 +11,13 @@ export class ContaController implements ContaRepository{
     // O valor vai ser acessado no Menu.ts
     public numero: number = 0;
 
+    procurarTitular(titular: string): void {
+        //Filtragem
+        let buscaTitular = this.listaContas.filter(conta => conta.titular.toUpperCase().includes(titular.toUpperCase()));
+
+        //Listagem
+        buscaTitular.forEach(conta => conta.visualizar())
+    }
     pesquisar(numero: number): void {
         const buscarConta = this.buscarNumero(numero);
 
